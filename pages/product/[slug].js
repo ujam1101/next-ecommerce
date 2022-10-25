@@ -11,6 +11,7 @@ export default function ProductScreen() {
   const { query } = useRouter()
   const { slug } = query
   const product = data.products.find((x) => x.slug === slug)
+  const router = useRouter()
   if (!product) {
     return <div>Product Not Found. 그런 상품이 없습니다.</div>
   }
@@ -22,6 +23,7 @@ export default function ProductScreen() {
       return
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
+    router.push('/cart')
   }
   return (
     <Layout title={product.name}>
