@@ -36,6 +36,46 @@ export default function LoginScreen() {
       toast.error(getError(err))
     }
   }
+  const githubLoginHandler = async () => {
+    try {
+      const result = await signIn('github', {
+        redirect: false,
+      })
+      console.log('Github login :' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+  const googleLoginHandler = async () => {
+    try {
+      const result = await signIn('google', {
+        redirect: false,
+      })
+      console.log('Google login :' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+  const kakaoLoginHandler = async () => {
+    try {
+      const result = await signIn('kakao', {
+        redirect: false,
+      })
+      console.log('Kakao login :' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+  const naverLoginHandler = async () => {
+    try {
+      const result = await signIn('naver', {
+        redirect: false,
+      })
+      console.log('Naver login :' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
 
   return (
     <Layout title="Login">
@@ -44,7 +84,7 @@ export default function LoginScreen() {
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="text-xl mb-4">Login</h1>
-        <div className="mb-4">
+        <div className="mb-4 p-4 rounded-lg">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -62,29 +102,71 @@ export default function LoginScreen() {
           {errors.email && (
             <div className="text-red-500">{errors.email.message}</div>
           )}
+          <div className="mb-4">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              {...register('password', {
+                required: 'Please enter password',
+                minLength: {
+                  value: 3,
+                  message: 'password is more than 3 chars',
+                },
+              })}
+              className="w-full"
+              id="password"
+              autoFocus
+            />
+            {errors.password && (
+              <div className="text-red-500 ">{errors.password.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <button className="primary-button px-10">Login</button>
+          </div>
+          <div className="mb-4">
+            계정이 없으면 등록하세요. &nbsp;&nbsp;{' '}
+            <Link href="register">Register</Link>
+          </div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            {...register('password', {
-              required: 'Please enter password',
-              minLength: { value: 3, message: 'password is more than 3 chars' },
-            })}
-            className="w-full"
-            id="password"
-            autoFocus
-          />
-          {errors.password && (
-            <div className="text-red-500 ">{errors.password.message}</div>
-          )}
-        </div>
-        <div className="mb-4">
-          <button className="primary-button px-10">Login</button>
-        </div>
-        <div className="mb-4">
-          계정이 없으면 등록하세요. &nbsp;&nbsp;{' '}
-          <Link href="register">Register</Link>
+        <div className="mb-4 p-4 rounded-lg">
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={githubLoginHandler}
+            >
+              Github Login
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={googleLoginHandler}
+            >
+              Google Login
+            </button>
+          </div>
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={kakaoLoginHandler}
+            >
+              카카오 로그인
+            </button>
+          </div>
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={naverLoginHandler}
+            >
+              Naver Login
+            </button>
+          </div>
         </div>
       </form>
     </Layout>
